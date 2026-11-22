@@ -3,22 +3,6 @@ import { createClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 
-export async function getPublishedJobs() {
-  const supabase = await createClient()
-  const { data, error } = await supabase
-    .from('jobs')
-    .select(`
-      id, title, location, salary_range, created_at,
-      companies ( name ),
-      job_roles ( name )
-    `)
-    .eq('status', 'published')
-    .order('created_at', { ascending: false })
-
-  if (error) throw new Error(error.message)
-  return data
-}
-
 export async function getRecruiterJobs() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
