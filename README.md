@@ -1,36 +1,30 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ZedJobs Lite
 
-## Getting Started
+ZedJobs Lite is an in-progress job board for ICT opportunities in Zambia. It uses Next.js App Router, TypeScript, Tailwind CSS, and Supabase Auth/Postgres.
 
-First, run the development server:
+## Current features
+
+- Candidate registration and login through Supabase Auth.
+- Candidate-only routes protected by the candidate layout.
+- A job board showing published roles, company, location, category, and salary in ZMW.
+- Published job detail pages with a not-found state for removed or unpublished roles.
+
+Recruiter-facing screens and candidate applications are still under development.
+
+## Local development
+
+Install dependencies and create `.env.local` with the public Supabase project URL and anon key expected by `src/lib/supabase/server.ts` and `src/lib/supabase/client.ts`. Keep credentials out of source control.
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The Supabase project must already contain the tables and row-level security policies used by the app. This repository does not currently include database migrations.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Checks
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run lint
+npm run build
+```
