@@ -2,6 +2,8 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getPublishedJob } from '@/lib/jobs'
 import { relatedName } from '@/lib/job-utils'
+import { getMyApplicationForJob } from '@/lib/jobs'
+import ApplicationForm from './application-form'
 
 export default async function CandidateJobDetailPage({
   params,
@@ -13,6 +15,7 @@ export default async function CandidateJobDetailPage({
 
   if (!job) notFound()
 
+  const application = await getMyApplicationForJob(job.id)
   const company = relatedName(job.companies)
   const role = relatedName(job.job_roles)
   const postedDate = new Intl.DateTimeFormat('en-ZM', {
@@ -64,6 +67,25 @@ export default async function CandidateJobDetailPage({
           </p>
         </section>
       </article>
+
+      <section aria-labelledby="apply-heading" className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
+        <h2 id="apply-heading" className="text-xl font-semibold text-gray-950">
+          Apply for this role
+        </h2>
+        {application ? (
+          <div className="mt-4 rounded-lg bg-blue-50 p-4 text-sm text-blue-900">
+            <p>You have already applied for this job.</p>
+            <p className="mt-1">Current status: {application.status.replaceAll('_', ' ')}</p>
+            <Link href="/candidate/applications" className="mt-3 inline-block font-semibold underline">
+              View my applications
+            </Link>
+          </div>
+        ) : (
+          <div className="mt-5">
+            <ApplicationForm jobId={job.id} />
+          </div>
+        )}
+      </section>
     </div>
   )
 }

@@ -8,8 +8,9 @@ ZedJobs Lite is an in-progress job board for ICT opportunities in Zambia. It use
 - Candidate-only routes protected by the candidate layout.
 - A job board showing published roles, company, location, category, and salary in ZMW.
 - Published job detail pages with a not-found state for removed or unpublished roles.
+- Candidate applications with optional cover letters and a personal application list.
 
-Recruiter-facing screens and candidate applications are still under development.
+Recruiter-facing screens and application review tools are still under development.
 
 ## Local development
 
@@ -20,11 +21,12 @@ npm install
 npm run dev
 ```
 
-The Supabase project must already contain the tables and row-level security policies used by the app. This repository does not currently include database migrations.
+The Supabase project must already contain the tables and row-level security policies used by the app. Before enabling candidate submissions in an environment, apply the reviewed SQL migration in `supabase/migrations/`; the app does not run it automatically.
 
 ## Checks
 
 ```bash
+npm test
 npm run lint
 npm run build
 ```
