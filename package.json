@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "node --experimental-strip-types --test src/lib/job-utils.test.mts"
+    "test": "node --experimental-strip-types --test src/lib/job-utils.test.mts src/lib/application-utils.test.mts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",
