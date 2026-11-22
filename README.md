@@ -4,13 +4,13 @@ ZedJobs Lite is an in-progress job board for ICT opportunities in Zambia. It use
 
 ## Current features
 
-- Candidate registration and login through Supabase Auth.
+- Candidate-only registration and login through Supabase Auth.
 - Candidate-only routes protected by the candidate layout.
 - A job board showing published roles, company, location, category, and salary in ZMW.
 - Published job detail pages with a not-found state for removed or unpublished roles.
 - Candidate applications with optional cover letters and a personal application list.
 
-Recruiter-facing screens and application review tools are still under development.
+Recruiter-facing screens and application review tools are still under development. Registration currently creates candidate accounts only.
 
 ## Local development
 

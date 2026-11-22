@@ -1,20 +1,25 @@
 'use server'
 
 import { createClient } from '@/lib/supabase/server'
+import { buildCandidateSignupMetadata, parseSignupInput } from '@/lib/auth-utils'
 import { redirect } from 'next/navigation'
 
 export async function register(formData: FormData) {
-  const supabase = await createClient()
-  const email = formData.get('email') as string
-  const password = formData.get('password') as string
-  const full_name = formData.get('full_name') as string
-  const role = formData.get('role') as string
+  const input = parseSignupInput(
+    formData.get('full_name'),
+    formData.get('email'),
+    formData.get('password'),
+  )
 
-  const { error } = await supabase.auth.signUp({
-    email,
-    password,
+  if (!input.ok) return { error: input.message }
+
+  const supabase = await createClient()
+
+  const { data, error } = await supabase.auth.signUp({
+    email: input.email,
+    password: input.password,
     options: {
-      data: { full_name, role },
+      data: buildCandidateSignupMetadata(input.fullName),
     },
   })
 
@@ -22,13 +27,11 @@ export async function register(formData: FormData) {
     return { error: error.message }
   }
 
-  // Because you disabled "Confirm Email" in Supabase, the user is logged in immediately.
-  // We check the role they just submitted and route them.
-  if (role === 'recruiter') {
-    redirect('/recruiter/jobs')
-  } else {
-    redirect('/candidate/jobs')
+  if (!data.session) {
+    return { success: 'Account created. Check your email to confirm it, then sign in.' }
   }
+
+  redirect('/candidate/jobs')
 }
 
 export async function login(formData: FormData) {
