@@ -55,7 +55,8 @@ export async function login(formData: FormData) {
       .single()
 
     if (profile?.role === 'recruiter') {
-      redirect('/recruiter/jobs')
+      if (user.app_metadata?.role === 'recruiter') redirect('/recruiter/jobs')
+      redirect('/')
     } else {
       redirect('/candidate/jobs')
     }
