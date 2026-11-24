@@ -10,7 +10,7 @@ ZedJobs Lite is an in-progress job board for ICT opportunities in Zambia. It use
 - Published job detail pages with a not-found state for removed or unpublished roles.
 - Candidate applications with optional cover letters and a personal application list.
 
-Recruiter-facing screens and application review tools are still under development. Registration currently creates candidate accounts only.
+Recruiters can create an employer profile, save draft jobs, and publish or unpublish their listings. Application review tools are still under development. Public registration creates candidate accounts only; a project administrator must provision recruiter accounts by setting both `profiles.role` and the Auth user's admin-controlled `app_metadata.role` to `recruiter`. Do not grant recruiter access through user-editable signup metadata.
 
 ## Local development
 
